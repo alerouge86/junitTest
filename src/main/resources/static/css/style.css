@@ -1,0 +1,12 @@
+body {
+	background: lightgreen;
+}
+
+.container {
+	width: 80%;
+	background: blue; 
+	color: white;
+	text-align: center;
+	margin: auto;
+	padding: 300px 0;
+}
