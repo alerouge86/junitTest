@@ -1,14 +1,17 @@
 package com.alerouge.prova1.repository.service;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.alerouge.prova1.model.Person;
-import com.alerouge.prova1.model.PersonDto;
 
 public interface IPersonService {
 
-	Person findById(Long id);
+	List<Person> getAllPersons();
 
-	Person findByNome(String nome);
+	Person getPersonById(Long id);
 
-	Person savePerson(PersonDto personDto);
-	
+	Person createPerson(Person person);
+
 }
