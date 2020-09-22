@@ -16,6 +16,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.alerouge.prova1.model.Person;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -58,19 +59,29 @@ public class MyControllerTest {
 
 	
 	@Test
-	public void getAllPersonsTest() throws Exception {
-		System.out.println("here 1");
-		
+	@Ignore
+	public void getPersonTest() throws Exception {
 		MvcResult result = mockMvc.perform(get("/getPerson/1").contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().isOk()).andReturn();
 
-		System.out.println("here 2");
-
 		String resultContent = result.getResponse().getContentAsString();
-		System.out.println(resultContent);
 		Person person = objectMapper.readValue(resultContent, Person.class);
 		Assert.assertTrue(person!=null);
-		Assert.assertTrue(StringUtils.isEmpty(person.getName()));
+		Assert.assertTrue(!StringUtils.isEmpty(person.getName()));
+	}
+
+	@Test
+//	@Ignore
+	public void getAllPersonsTest() throws Exception {
+		MvcResult result = mockMvc.perform(get("/getAllPersons").contentType(MediaType.APPLICATION_JSON_VALUE))
+				.andExpect(status().isOk()).andReturn();
+
+		String resultContent = result.getResponse().getContentAsString();
+		
+		List<Person> elencoPersons = objectMapper.readValue(resultContent, new TypeReference<List<Person>>(){});
+		System.out.println("elencoPersons: " + elencoPersons);
+		
+		Assert.assertTrue(elencoPersons.size()>0);
 	}
 	
 }
