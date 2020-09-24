@@ -1,9 +1,8 @@
-package com.alerouge.prova1.repository.service;
+package com.alerouge.prova1.service;
 
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alerouge.prova1.model.Person;
@@ -12,8 +11,11 @@ import com.alerouge.prova1.repository.PersonRepository;
 @Service
 public class PersonService implements IPersonService {
 
-	@Autowired
 	private PersonRepository repository;
+
+	public PersonService(PersonRepository repository) {
+		this.repository = repository;
+	}
 	
 	@Override
 	public List<Person> getAllPersons() {
@@ -21,17 +23,16 @@ public class PersonService implements IPersonService {
 	}
 
 	@Override
-	public Person getPersonById(Long id) {
-		Optional<Person> optionPerson = repository.findById(id);
-		if (optionPerson.isPresent()){
-			return optionPerson.get();
-		} else {
-			return null;
-		}
+	public Optional<Person> getPersonById(Long id) {
+		return repository.findById(id);
 	}
 
 	@Override
 	public Person createPerson(Person person) {
+		
+		// some business logic
+		person.setPoints(person.getPoints()+2);
+		
 		return repository.save(person);
 	}
 
