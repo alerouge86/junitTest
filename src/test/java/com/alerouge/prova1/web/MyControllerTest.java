@@ -1,5 +1,6 @@
 package com.alerouge.prova1.web;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,7 @@ class MyControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 
+	@Disabled
 	@Test
 	@DisplayName("GET /persons success")
 	public void testGetPersonsSuccess() throws Exception {
@@ -80,6 +82,7 @@ class MyControllerTest {
 		.andExpect(jsonPath("$.age", is(23)));
 	}
 
+	@Disabled
 	@Test
 	@DisplayName("GET getPerson/1 - Not Found")
 	void testGetPersonByIdNotFound() throws Exception {
@@ -94,6 +97,7 @@ class MyControllerTest {
 		.andExpect(status().isOk());
 	}
 	
+	@Disabled
 	@Test
     @DisplayName("POST /savePerson")
     void testCreatePerson() throws Exception {

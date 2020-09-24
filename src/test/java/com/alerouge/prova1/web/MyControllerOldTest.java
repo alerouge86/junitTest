@@ -71,7 +71,7 @@ public class MyControllerOldTest {
 	}
 
 	@Test
-//	@Ignore
+	@Ignore
 	public void getAllPersonsTest() throws Exception {
 		MvcResult result = mockMvc.perform(get("/getAllPersons").contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().isOk()).andReturn();
