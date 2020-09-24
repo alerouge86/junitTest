@@ -19,12 +19,9 @@ public class MyController {
 	@Autowired
 	private IPersonService service;
 	
-	
-	@PostMapping("/savePerson")
-	public Person savePerson(@RequestBody Person person){
-		Person personCreated = service.createPerson(person);
-		System.out.println(personCreated);
-		return personCreated;
+	@GetMapping("/getAllPersons")
+	public List<Person> getAllPersons(){
+		return service.getAllPersons();
 	}
 
 	@GetMapping("/getPerson/{id}")
@@ -37,8 +34,14 @@ public class MyController {
 		}
 	}
 
-	@GetMapping("/getAllPersons")
-	public List<Person> getAllPersons(){
-		return service.getAllPersons();
+	@PostMapping("/savePerson")
+	public Person savePerson(@RequestBody Person person){
+		Person personCreated = service.createPerson(person);
+		
+		// logica per test...
+		personCreated.setPoints(146);
+		
+		return personCreated;
 	}
+
 }

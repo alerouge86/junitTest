@@ -22,6 +22,10 @@ public class Person {
 		
 	}
 
+	public Person(String name, int age) {
+		this(0L, name, age, 0);
+	}
+
 	public Person(Long id, String name, int age) {
 		this(id, name, age, 0);
 	}
