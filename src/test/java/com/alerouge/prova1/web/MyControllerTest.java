@@ -1,6 +1,6 @@
 package com.alerouge.prova1.web;
 
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.alerouge.prova1.model.Person;
 import com.alerouge.prova1.service.PersonService;
+import com.alerouge.prova1.session.DatiSessione;
 import com.alerouge.prova1.utility.UtiJson;
 import com.google.common.collect.Lists;
 
@@ -24,7 +25,7 @@ import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-@AutoConfigureMockMvc(addFilters=false)
+@AutoConfigureMockMvc(addFilters=false)		// per non considerare spring security
 class MyControllerTest {
 
 	@MockBean
@@ -33,7 +34,15 @@ class MyControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 
-	@Disabled
+	@MockBean
+	private DatiSessione datiSessione;
+
+	@BeforeEach
+	public void setup() {
+		when(datiSessione.getNomeSessione()).thenReturn("nomeSessioneTestDaMock");
+	}
+	
+	
 	@Test
 	@DisplayName("GET /persons success")
 	public void testGetPersonsSuccess() throws Exception {
@@ -81,7 +90,6 @@ class MyControllerTest {
 		.andExpect(jsonPath("$.age", is(23)));
 	}
 
-	@Disabled
 	@Test
 	@DisplayName("GET getPerson/1 - Not Found")
 	void testGetPersonByIdNotFound() throws Exception {
@@ -96,7 +104,6 @@ class MyControllerTest {
 		.andExpect(status().isOk());
 	}
 	
-	@Disabled
 	@Test
     @DisplayName("POST /savePerson")
     void testCreatePerson() throws Exception {

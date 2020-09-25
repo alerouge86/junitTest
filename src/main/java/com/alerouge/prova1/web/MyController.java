@@ -27,6 +27,9 @@ public class MyController {
 	
 	@GetMapping("/getAllPersons")
 	public List<Person> getAllPersons(){
+		
+		System.out.println("[getAllPersons] nome sessione (from controller): " + getNomeSess());
+
 		return service.getAllPersons();
 	}
 
@@ -40,6 +43,8 @@ public class MyController {
 			// TODO: solo per test session bean
 //			personReturned.setName(getNomeSess());
 			
+			System.out.println("[getPerson/{id}] nome sessione (from controller): " + getNomeSess());
+			
 			return personReturned;
 		} else {
 			return null;
@@ -52,7 +57,9 @@ public class MyController {
 		
 		// logica per test...
 		personCreated.setPoints(146);
-		
+
+		System.out.println("[savePerson] nome sessione (from controller): " + getNomeSess());
+
 		return personCreated;
 	}
 
